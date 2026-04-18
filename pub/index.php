@@ -176,7 +176,7 @@ body {
 </div>
 
 <div class="hero">
-    <h1>Welcome to Magento store Version 2.0</h1>
+    <h1>Welcome to Magento store Version 1.0</h1>
     <p>Discover latest products with great offers</p>
     <button>Shop Now</button>
 </div>
