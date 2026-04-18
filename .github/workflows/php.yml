@@ -1,0 +1,30 @@
+name: Auto Deploy PHP App (2 Servers)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Deploy to Server 1
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.SERVER1_HOST }}
+        username: root
+        key: ${{ secrets.SERVER1_SSH_KEY }}
+        script: |
+          /var/www/magento/pub/pub/deploy.sh
+
+    - name: Deploy to Server 2
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.SERVER2_HOST }}
+        username: root
+        key: ${{ secrets.SERVER2_SSH_KEY }}
+        script: |
+          /var/www/magento/pub/pub/deploy.sh
