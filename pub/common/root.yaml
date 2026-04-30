@@ -1,0 +1,27 @@
+# Apply this manually once to bootstrap:
+# kubectl apply -f clusters/common/root.yaml -n argocd
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: root-apps-common
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    environment: common
+    managed-by: argocd
+spec:
+  project: trekai-obs
+  source:
+    repoURL: https://github.com/ethos-insights/tl-lms-gitOps.git
+    targetRevision: main
+    path: clusters/common        # ← watches this folder
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
